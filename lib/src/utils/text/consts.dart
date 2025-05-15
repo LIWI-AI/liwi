@@ -1,3 +1,3 @@
 class TextConsts {
-  static const String appName = 'sara';
+  static const String appName = 'liwi';
 }

@@ -13,7 +13,7 @@ Widget signUpWith(BuildContext context, Widget icon, {required VoidCallback onPr
       decoration: BoxDecoration(
         // color: AppColors.mainButtonLight,
         borderRadius: BorderRadius.circular(5),
-        border: Border.all(width: 1.3,color: AppColors.white),
+        border: Border.all(width: 1.3,color: AppColors.transparent),
       ),
       child: Align(
         alignment: Alignment.center,

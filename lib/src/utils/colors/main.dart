@@ -33,7 +33,8 @@ class AppColors {
   static const Color textInput = Color.fromARGB(255, 255, 255, 255);
 
 
-  static const Color white = Color.fromARGB(0, 255, 255, 255);
+  static const Color transparent = Colors.transparent;
+  static const Color white = Color.fromARGB(255, 255, 255, 255);
   static const Color mainButtonLight = Color(0xFF8273F0);
   // static const Color mainButtonDark = Color.fromARGB(255, 140, 94, 60);
   static const Color secondaryButton = Color(0xFFFFFFFF);

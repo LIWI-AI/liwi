@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sara_ai/src/utils/colors/main.dart';
 import 'package:sara_ai/src/view/get_started/get_started.dart';
+import 'package:sara_ai/src/view/home/screens/home_page.dart';
 import 'src/utils/providers/language_list_provider.dart';
 
 void main() {
@@ -21,7 +22,7 @@ void main() {
           fontFamily: 'Roboto',
         ),
         // Initially Get Started Page
-        home: GetStartedPage(),
+        home: HomeScreen(),
       ),
     ),
   );

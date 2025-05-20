@@ -46,3 +46,4 @@ class AppColors {
     Color.fromARGB(255, 162, 171, 242),
   ];
 }
+

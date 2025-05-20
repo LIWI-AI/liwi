@@ -4,6 +4,7 @@ import 'package:sara_ai/src/utils/widgets/base_widget.dart';
 import 'package:sara_ai/src/view/chat/screens/lesson_chat_screen.dart';
 import 'package:sara_ai/src/view/home/widgets/bottom_nav_bar.dart';
 import 'package:sara_ai/src/view/home/widgets/locked_lesson_card.dart';
+import 'package:sara_ai/src/view/profile/screens/profile_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -31,8 +32,9 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              // Bottom navigation bar
-              const CustomBottomNavigationBar(),
+              
+              // Add space for bottom navigation bar
+              const SizedBox(height: 90),
             ],
           ),
           
@@ -41,6 +43,43 @@ class HomeScreen extends StatelessWidget {
             right: 20,
             bottom: 100, // Position above bottom nav bar
             child: _buildAIChatButton(context),
+          ),
+          
+          // Bottom navigation bar positioned at the bottom - MOVED OUTSIDE THE COLUMN
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: CustomBottomNavigationBar(
+              initialSelectedIndex: 0, // Set home tab (index 0) as selected
+              onNavigate: (index) {
+                // Don't do anything if home tab is tapped (already on home)
+                if (index == 0) return;
+                
+                // Navigate based on tab index
+                if (index == 3) { // Profile tab
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(
+                      builder: (context) => const ProfileScreen(),
+                    ),
+                  );
+                } else if (index == 1) { // Pro tab
+                  // Pro screen not built yet
+                  // Navigator.of(context).pushReplacement(
+                  //   MaterialPageRoute(
+                  //     builder: (context) => const ProScreen(),
+                  //   ),
+                  // );
+                } else if (index == 2) { // Learn tab
+                  // Learn screen not built yet
+                  // Navigator.of(context).pushReplacement(
+                  //   MaterialPageRoute(
+                  //     builder: (context) => const LearnScreen(),
+                  //   ),
+                  // );
+                }
+              },
+            ),
           ),
         ],
       ),

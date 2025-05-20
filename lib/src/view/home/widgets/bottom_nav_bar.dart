@@ -3,14 +3,21 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'dart:ui';
 
 class CustomBottomNavigationBar extends StatefulWidget {
-  const CustomBottomNavigationBar({Key? key}) : super(key: key);
+  final Function(int) onNavigate; // Add callback for navigation
+  final int initialSelectedIndex; // Add initial selected index parameter
+  
+  const CustomBottomNavigationBar({
+    Key? key, 
+    required this.onNavigate,
+    this.initialSelectedIndex = 0, // Default to first tab (Home)
+  }) : super(key: key);
 
   @override
   State<CustomBottomNavigationBar> createState() => _CustomBottomNavigationBarState();
 }
 
 class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> with SingleTickerProviderStateMixin {
-  int _selectedIndex = 0;
+  late int _selectedIndex;
   late AnimationController _animationController;
   
   // Define the SVG paths for each tab - make sure these files exist
@@ -24,6 +31,9 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> w
   @override
   void initState() {
     super.initState();
+    // Initialize selected index with the provided initial value
+    _selectedIndex = widget.initialSelectedIndex;
+    
     _animationController = AnimationController(
       duration: const Duration(milliseconds: 300),
       vsync: this,
@@ -44,8 +54,10 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> w
       });
       _animationController.reset();
       _animationController.forward();
+      
+      // Call the navigation callback with the selected index
+      widget.onNavigate(index);
     }
-    // Handle navigation
   }
 
   @override
@@ -198,4 +210,3 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> w
     );
   }
 }
-

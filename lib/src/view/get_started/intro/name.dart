@@ -30,8 +30,12 @@ class _IntroNamePageState extends State<IntroNamePage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          backButton(context),
-          const SizedBox(height: 20),
+          // Add proper padding to the back button
+          Padding(
+            padding: const EdgeInsets.only(top: 16.0),
+            child: backButton(context),
+          ),
+          const SizedBox(height: 24),
           text(
             context,
             text: "Nice to meet you.",
@@ -39,8 +43,11 @@ class _IntroNamePageState extends State<IntroNamePage> {
               fontSize: 26,
               fontWeight: CustomFontWeight.bold,
               color: Theme.of(context).colorScheme.onBackground,
+              fontFamily: 'Poppins',
             ),
+            textAlign: TextAlign.left,
           ),
+          const SizedBox(height: 8),
           text(
             context,
             text: "What's your name?",
@@ -48,14 +55,17 @@ class _IntroNamePageState extends State<IntroNamePage> {
               fontSize: 26,
               fontWeight: CustomFontWeight.bold,
               color: Theme.of(context).colorScheme.onBackground,
+              fontFamily: 'Poppins',
             ),
+            textAlign: TextAlign.left,
           ),
-          const SizedBox(height: 30),
+          const SizedBox(height: 40),
           TextField(
             controller: nameController,
             style: const TextStyle(
               fontSize: 18,
               color: AppColors.textPrimary,
+              fontFamily: 'Poppins',
             ),
             onChanged: (value) {
               setState(() {
@@ -68,33 +78,37 @@ class _IntroNamePageState extends State<IntroNamePage> {
             decoration: InputDecoration(
                 hintText: 'Enter your name (in English)',
                 hintStyle: TextStyle(
-                  fontSize: 14,
+                  fontSize: 16,
                   color: AppColors.textPrimary.withOpacity(0.5),
+                  fontFamily: 'Poppins',
                 ),
                 border: UnderlineInputBorder(
                     borderSide: BorderSide(color: AppColors.borderDark))),
             textInputAction: TextInputAction.next,
             keyboardType: TextInputType.name,
-            // maxLines: 1,
-            // maxLength: 30,
             textCapitalization: TextCapitalization.words,
           ),
-          Spacer(),
-          textButton(
-            context,
-            color: color,
-            text: 'Next',
-            onPressed: () {
-              if (nameController.text.isNotEmpty) {
-             Navigator.push(context, MaterialPageRoute(builder: (context) => AiTutorIntroPage()));
-              } else {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Please enter your name'),
-                  ),
-                );
-              }
-            },
+          const Spacer(),
+          // Add bottom padding to ensure consistent spacing
+          Padding(
+            padding: const EdgeInsets.only(bottom: 16.0),
+            child: textButton(
+              context,
+              color: color,
+              text: 'Next',
+              onPressed: () {
+                if (nameController.text.isNotEmpty) {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => AiTutorIntroPage()));
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Please enter your name'),
+                    ),
+                  );
+                }
+              },
+              withShadow: nameController.text.isNotEmpty,
+            ),
           ),
         ],
       ),

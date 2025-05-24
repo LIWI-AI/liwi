@@ -20,7 +20,8 @@ class GetStartedPage extends StatelessWidget {
               style: const TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
-                  color: AppColors.textPrimary)),
+                  color: AppColors.textPrimary,
+                  fontFamily: 'Poppins')),
           const SizedBox(height: 20),
           text(context,
               text:
@@ -28,14 +29,21 @@ class GetStartedPage extends StatelessWidget {
               style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w300,
-                  color: AppColors.textSecondary)),
-          const SizedBox(height: 20),
-          textButton(context, text: 'Get Started', onPressed: () {
+                  color: AppColors.textSecondary,
+                  fontFamily: 'Poppins')),
+          const SizedBox(height: 40),
+          textButton(
+            context, 
+            text: 'Get Started', 
+            onPressed: () {
               // Navigate to SignUp Page
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const SignUpPage()));
-          }, color: AppColors.mainButtonLight),
-          const SizedBox(height: 10),
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const SignUpPage()));
+            }, 
+            color: AppColors.mainButtonLight,
+            withShadow: true,
+          ),
+          const SizedBox(height: 16),
           textButton(
             context,
             text: 'I already have an account',
@@ -49,22 +57,21 @@ class GetStartedPage extends StatelessWidget {
             },
             color: AppColors.secondaryButton,
             textColor: AppColors.textPrimary,
+            withShadow: true,
           ),
-          const SizedBox(height: 10),
-          // By continuing, you agree to our Terms & Conditions (with Terms & Conditions is a link and underlined)
+          const SizedBox(height: 24),
           const Text(
             'By continuing, you agree to our',
             style: TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w300,
-                color: AppColors.textPrimary),
+                color: AppColors.textPrimary,
+                fontFamily: 'Poppins'),
             textAlign: TextAlign.center,
           ),
           InkWell(
             onTap: () {
-
               // Navigate to Terms & Conditions page
-              // Navigator.push(context, MaterialPageRoute(builder: (context) => TermsAndConditionsPage()));
             },
             child: const Text(
               'Terms & Conditions',
@@ -73,10 +80,12 @@ class GetStartedPage extends StatelessWidget {
                 fontWeight: FontWeight.w300,
                 color: AppColors.textPrimary,
                 decoration: TextDecoration.underline,
+                fontFamily: 'Poppins',
               ),
               textAlign: TextAlign.center,
             ),
           ),
+          const SizedBox(height: 16),
         ],
       ),
     );

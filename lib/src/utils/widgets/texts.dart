@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 
 Widget text(BuildContext context, {required String text, TextStyle? style, TextAlign? textAlign}) {
-  // var screenWidth = MediaQuery.of(context).size.width;
+  // Ensure the style always includes Poppins font
+  final TextStyle finalStyle = (style ?? const TextStyle()).copyWith(
+    fontFamily: 'Poppins',
+  );
+  
   return SizedBox(
-      // width: screenWidth * 0.8,
-      child:  Text(text,
-          style: style,
-          textAlign:textAlign ?? TextAlign.center));
+    child: Text(
+      text,
+      style: finalStyle,
+      textAlign: textAlign ?? TextAlign.center
+    )
+  );
 }

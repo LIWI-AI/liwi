@@ -1,0 +1,20 @@
+{
+  "buildFiles": [
+    "/Users/hishampp/fvm/versions/3.29.3/packages/flutter_tools/gradle/src/main/groovy/CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/Users/hishampp/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+      "-C",
+      "/Users/hishampp/Downloads/english_learner/android/app/.cxx/Debug/583hi215/x86_64",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/Users/hishampp/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+    "-C",
+    "/Users/hishampp/Downloads/english_learner/android/app/.cxx/Debug/583hi215/x86_64",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {}
+}

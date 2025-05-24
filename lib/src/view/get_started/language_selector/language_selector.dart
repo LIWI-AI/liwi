@@ -5,6 +5,7 @@ import '../../../utils/colors/main.dart';
 import '../../../utils/providers/language_list_provider.dart';
 import '../../../utils/styles/font_weight.dart';
 import '../../../utils/widgets/base_widget.dart';
+import '../../../utils/widgets/text_button.dart';
 import '../intro/name.dart';
 
 class LanguageSelectionScreen extends StatefulWidget {
@@ -24,18 +25,23 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
         Provider.of<LanguageListProvider>(context, listen: false);
     final popularLanguages = languageProvider.popularLanguages;
     final allLanguages = languageProvider.allLanguages;
+    
+    // Get screen size for responsive design
+    final size = MediaQuery.of(context).size;
+    final viewInsets = MediaQuery.of(context).viewInsets;
+    final isKeyboardOpen = viewInsets.bottom > 0;
 
     return BaseWidget(
       child: Column(
         children: [
           // Scrollable content
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.82,
+          Expanded(
             child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 30),
+                  SizedBox(height: isKeyboardOpen ? 20 : 30),
                   text(
                     context,
                     text: "What's your native language?",
@@ -43,6 +49,7 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
                       fontSize: 26,
                       fontWeight: CustomFontWeight.bold,
                       color: Colors.black,
+                      fontFamily: 'Poppins',
                     ),
                     textAlign: TextAlign.start,
                   ),
@@ -51,7 +58,11 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
                     context,
                     text:
                         "You'll get feedback and assistance in your native language.",
-                    style: const TextStyle(fontSize: 14, color: Colors.black54),
+                    style: const TextStyle(
+                      fontSize: 14, 
+                      color: Colors.black54,
+                      fontFamily: 'Poppins',
+                    ),
                     textAlign: TextAlign.start,
                   ),
                   const SizedBox(height: 30),
@@ -62,12 +73,13 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
                       fontSize: 16,
                       fontWeight: CustomFontWeight.medium,
                       color: AppColors.textSecondary,
+                      fontFamily: 'Poppins',
                     ),
                     textAlign: TextAlign.start,
                   ),
                   const SizedBox(height: 10),
                   ...popularLanguages.map(_languageTile),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 20),
                   text(
                     context,
                     text: "All languages",
@@ -75,20 +87,38 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
                       fontSize: 14,
                       fontWeight: CustomFontWeight.medium,
                       color: AppColors.textSecondary,
+                      fontFamily: 'Poppins',
                     ),
                     textAlign: TextAlign.start,
                   ),
                   const SizedBox(height: 10),
                   ...allLanguages.map(_languageTile),
-                  // const SizedBox(height: 30),
+                  // Add bottom padding to ensure last item is visible when scrolled
+                  SizedBox(height: 20 + (isKeyboardOpen ? viewInsets.bottom : 0)),
                 ],
               ),
             ),
           ),
-          SizedBox(height: 10),
-            // Navigate to Next page
-          _continueButton(context, false),
-          // ),
+          // Fixed bottom button
+          Padding(
+            padding: const EdgeInsets.only(bottom: 16.0),
+            child: textButton(
+              context,
+              text: "Continue",
+              onPressed: () {
+                // If Language is selected
+                if (selectedLanguage != null) {
+                  // Navigate to Intro Name Page
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) => IntroNamePage()));
+                }
+              },
+              color: selectedLanguage != null
+                  ? AppColors.mainButtonLight
+                  : AppColors.textSecondary,
+              withShadow: selectedLanguage != null,
+            ),
+          ),
         ],
       ),
     );
@@ -106,14 +136,23 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
       child: Container(
         width: double.infinity,
         margin: const EdgeInsets.only(bottom: 12),
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 13),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
         decoration: BoxDecoration(
           color: isSelected ? const Color(0xFFEDE7FE) : Colors.white,
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
-            color: isSelected ? const Color(0xFF876CFE) : Colors.transparent,
+            color: isSelected ? const Color(0xFF876CFE) : const Color(0xFFEEEEEE),
             width: 1.5,
           ),
+          boxShadow: isSelected 
+              ? [
+                  BoxShadow(
+                    color: const Color(0x1A876CFE),
+                    offset: const Offset(0, 4),
+                    blurRadius: 8,
+                  )
+                ] 
+              : null,
         ),
         child: Text(
           language,
@@ -121,41 +160,7 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
             fontSize: 16,
             color: isSelected ? const Color(0xFF876CFE) : Colors.black87,
             fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _continueButton(BuildContext context, bool isSelected) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 0),
-      child: GestureDetector(
-        onTap: () {
-          // If Language is selected
-          if (selectedLanguage != null) {
-            // Navigate to Intro Name Page
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => IntroNamePage()));
-          }
-        },
-        child: Container(
-          height: 60,
-          margin: const EdgeInsets.symmetric(horizontal: 0),
-          decoration: BoxDecoration(
-            color: selectedLanguage != null
-                ? AppColors.mainButtonLight
-                : AppColors.textSecondary,
-            borderRadius: BorderRadius.circular(40),
-          ),
-          alignment: Alignment.center,
-          child: const Text(
-            "Continue",
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
-              color: Colors.white,
-            ),
+            fontFamily: 'Poppins',
           ),
         ),
       ),
